@@ -1,0 +1,39 @@
+# Flutter / Dart
+.dart_tool/
+.packages
+build/
+pubspec.lock
+*.g.dart
+*.freezed.dart
+
+# Generated l10n
+lib/generated/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Android
+**/android/local.properties
+**/android/.gradle
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/key.properties
+
+# iOS
+**/ios/.symlinks/
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Pods/
+**/ios/.generated/
+**/ios/Runner/GeneratedPluginRegistrant.*
+
+# macOS
+**/macos/Flutter/GeneratedPluginRegistrant.swift
+
+# Misc
+.DS_Store
+*.log
+.env
