@@ -77,7 +77,7 @@ class _AddWalletScreenState extends ConsumerState<AddWalletScreen> {
         type: _selectedType,
         openingBalance: balance,
         color: _selectedColor,
-        status: 'active',
+        isArchived: false,
         createdAt: widget.wallet?.createdAt ?? now,
         updatedAt: now,
       );

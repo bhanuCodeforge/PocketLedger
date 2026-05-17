@@ -1,4 +1,5 @@
-import 'package:sqflite/sqflite.dart';
+import 'dart:io';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:path/path.dart';
 
 /// Singleton SQLite database helper.
@@ -19,6 +20,10 @@ class DatabaseHelper {
   }
 
   Future<Database> _initDb() async {
+    if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+      sqfliteFfiInit();
+      databaseFactory = databaseFactoryFfi;
+    }
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, _dbName);
 
@@ -33,7 +38,7 @@ class DatabaseHelper {
 
   Future<void> _onConfigure(Database db) async {
     await db.execute('PRAGMA foreign_keys = ON');
-    await db.execute('PRAGMA journal_mode = WAL');
+    await db.rawQuery('PRAGMA journal_mode = WAL');
   }
 
   Future<void> _onCreate(Database db, int version) async {

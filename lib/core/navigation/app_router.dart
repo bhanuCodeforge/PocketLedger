@@ -56,28 +56,23 @@ final routerProvider = Provider<GoRouter>((ref) {
     redirect: (context, state) {
       final location = state.uri.path;
 
-      // Always allow splash
       if (location == '/splash') return null;
 
-      // Wait for init
       if (appInit.isLoading) return '/splash';
       if (appInit.hasError) return '/splash';
 
       final initState = appInit.value!;
 
-      // First launch → onboarding
       if (!initState.isOnboardingComplete) {
         if (location.startsWith('/onboarding')) return null;
         return '/onboarding';
       }
 
-      // Has PIN and not authenticated → lock screen
       if (initState.hasPIN && !authState) {
         if (location == '/lock') return null;
         return '/lock';
       }
 
-      // Authenticated user trying to go to lock → dashboard
       if (location == '/lock' && authState) {
         return '/dashboard';
       }
@@ -85,6 +80,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       return null;
     },
     routes: [
+      // ── Auth / init routes ───────────────────────────────────────────────
       GoRoute(
         path: '/splash',
         builder: (_, __) => const SplashScreen(),
@@ -97,6 +93,8 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/lock',
         builder: (_, __) => const PinLockScreen(),
       ),
+
+      // ── Shell (bottom navigation) ────────────────────────────────────────
       ShellRoute(
         navigatorKey: _shellNavigatorKey,
         builder: (context, state, child) => DashboardShell(child: child),
@@ -108,104 +106,26 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/expenses',
             builder: (_, __) => const ExpensesScreen(),
-            routes: [
-              GoRoute(
-                path: 'add',
-                parentNavigatorKey: _rootNavigatorKey,
-                builder: (_, __) => const AddExpenseScreen(),
-              ),
-              GoRoute(
-                path: ':id',
-                parentNavigatorKey: _rootNavigatorKey,
-                builder: (_, state) => ExpenseDetailScreen(
-                  id: state.pathParameters['id']!,
-                ),
-                routes: [
-                  GoRoute(
-                    path: 'edit',
-                    parentNavigatorKey: _rootNavigatorKey,
-                    builder: (_, state) => AddExpenseScreen(
-                      editId: state.pathParameters['id'],
-                    ),
-                  ),
-                ],
-              ),
-            ],
           ),
           GoRoute(
             path: '/income',
             builder: (_, __) => const IncomeScreen(),
-            routes: [
-              GoRoute(
-                path: 'add',
-                parentNavigatorKey: _rootNavigatorKey,
-                builder: (_, __) => const AddIncomeScreen(),
-              ),
-              GoRoute(
-                path: ':id/edit',
-                parentNavigatorKey: _rootNavigatorKey,
-                builder: (_, state) => AddIncomeScreen(
-                  editId: state.pathParameters['id'],
-                ),
-              ),
-            ],
           ),
           GoRoute(
             path: '/wallets',
             builder: (_, __) => const WalletsScreen(),
-            routes: [
-              GoRoute(
-                path: 'add',
-                parentNavigatorKey: _rootNavigatorKey,
-                builder: (_, state) => AddWalletScreen(
-                  wallet: state.extra as Wallet?,
-                ),
-              ),
-            ],
           ),
           GoRoute(
             path: '/folders',
             builder: (_, __) => const FoldersScreen(),
-            routes: [
-              GoRoute(
-                path: 'add',
-                parentNavigatorKey: _rootNavigatorKey,
-                builder: (_, state) => AddFolderScreen(
-                  extra: state.extra,
-                ),
-              ),
-            ],
           ),
           GoRoute(
             path: '/loans',
             builder: (_, __) => const LoansScreen(),
-            routes: [
-              GoRoute(
-                path: 'add',
-                parentNavigatorKey: _rootNavigatorKey,
-                builder: (_, __) => const AddLoanScreen(),
-              ),
-              GoRoute(
-                path: ':id',
-                parentNavigatorKey: _rootNavigatorKey,
-                builder: (_, state) => LoanDetailScreen(
-                  id: state.pathParameters['id']!,
-                ),
-              ),
-            ],
           ),
           GoRoute(
             path: '/budgets',
             builder: (_, __) => const BudgetsScreen(),
-            routes: [
-              GoRoute(
-                path: 'add',
-                parentNavigatorKey: _rootNavigatorKey,
-                builder: (_, state) => AddBudgetScreen(
-                  editBudget: state.extra as Budget?,
-                ),
-              ),
-            ],
           ),
           GoRoute(
             path: '/reports',
@@ -218,77 +138,137 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/contacts',
             builder: (_, __) => const ContactsScreen(),
-            routes: [
-              GoRoute(
-                path: 'add',
-                parentNavigatorKey: _rootNavigatorKey,
-                builder: (_, state) => AddContactScreen(
-                  editContact: state.extra as Contact?,
-                ),
-              ),
-            ],
           ),
           GoRoute(
             path: '/groups',
             builder: (_, __) => const GroupsScreen(),
-            routes: [
-              GoRoute(
-                path: 'add',
-                parentNavigatorKey: _rootNavigatorKey,
-                builder: (_, state) => AddGroupScreen(
-                  editGroup: state.extra as SplitGroup?,
-                ),
-              ),
-              GoRoute(
-                path: ':id',
-                parentNavigatorKey: _rootNavigatorKey,
-                builder: (_, state) => GroupDetailScreen(
-                  groupId: state.pathParameters['id']!,
-                ),
-              ),
-            ],
           ),
           GoRoute(
             path: '/insights',
             builder: (_, __) => const InsightsScreen(),
           ),
           GoRoute(
-            path: '/ocr',
-            parentNavigatorKey: _rootNavigatorKey,
-            builder: (_, __) => const OcrScreen(),
-          ),
-          GoRoute(
             path: '/settings',
             builder: (_, __) => const SettingsScreen(),
-            routes: [
-              GoRoute(
-                path: 'theme',
-                parentNavigatorKey: _rootNavigatorKey,
-                builder: (_, __) => const ThemeSettingsScreen(),
-              ),
-              GoRoute(
-                path: 'language',
-                parentNavigatorKey: _rootNavigatorKey,
-                builder: (_, __) => const LanguageSettingsScreen(),
-              ),
-              GoRoute(
-                path: 'security',
-                parentNavigatorKey: _rootNavigatorKey,
-                builder: (_, __) => const SecuritySettingsScreen(),
-              ),
-              GoRoute(
-                path: 'backup',
-                parentNavigatorKey: _rootNavigatorKey,
-                builder: (_, __) => const BackupSettingsScreen(),
-              ),
-              GoRoute(
-                path: 'profile',
-                parentNavigatorKey: _rootNavigatorKey,
-                builder: (_, __) => const ProfileSettingsScreen(),
-              ),
-            ],
           ),
         ],
+      ),
+
+      // ── Full-screen routes (no shell / bottom nav) ───────────────────────
+      // Expenses
+      GoRoute(
+        path: '/expenses/add',
+        builder: (_, __) => const AddExpenseScreen(),
+      ),
+      GoRoute(
+        path: '/expenses/:id/edit',
+        builder: (_, state) => AddExpenseScreen(
+          editId: state.pathParameters['id'],
+        ),
+      ),
+      GoRoute(
+        path: '/expenses/:id',
+        builder: (_, state) => ExpenseDetailScreen(
+          id: state.pathParameters['id']!,
+        ),
+      ),
+
+      // Income
+      GoRoute(
+        path: '/income/add',
+        builder: (_, __) => const AddIncomeScreen(),
+      ),
+      GoRoute(
+        path: '/income/:id/edit',
+        builder: (_, state) => AddIncomeScreen(
+          editId: state.pathParameters['id'],
+        ),
+      ),
+
+      // Wallets
+      GoRoute(
+        path: '/wallets/add',
+        builder: (_, state) => AddWalletScreen(
+          wallet: state.extra as Wallet?,
+        ),
+      ),
+
+      // Folders
+      GoRoute(
+        path: '/folders/add',
+        builder: (_, state) => AddFolderScreen(
+          extra: state.extra,
+        ),
+      ),
+
+      // Loans
+      GoRoute(
+        path: '/loans/add',
+        builder: (_, __) => const AddLoanScreen(),
+      ),
+      GoRoute(
+        path: '/loans/:id',
+        builder: (_, state) => LoanDetailScreen(
+          id: state.pathParameters['id']!,
+        ),
+      ),
+
+      // Budgets
+      GoRoute(
+        path: '/budgets/add',
+        builder: (_, state) => AddBudgetScreen(
+          editBudget: state.extra as Budget?,
+        ),
+      ),
+
+      // Contacts
+      GoRoute(
+        path: '/contacts/add',
+        builder: (_, state) => AddContactScreen(
+          editContact: state.extra as Contact?,
+        ),
+      ),
+
+      // Groups
+      GoRoute(
+        path: '/groups/add',
+        builder: (_, state) => AddGroupScreen(
+          editGroup: state.extra as SplitGroup?,
+        ),
+      ),
+      GoRoute(
+        path: '/groups/:id',
+        builder: (_, state) => GroupDetailScreen(
+          groupId: state.pathParameters['id']!,
+        ),
+      ),
+
+      // OCR
+      GoRoute(
+        path: '/ocr',
+        builder: (_, __) => const OcrScreen(),
+      ),
+
+      // Settings sub-screens
+      GoRoute(
+        path: '/settings/theme',
+        builder: (_, __) => const ThemeSettingsScreen(),
+      ),
+      GoRoute(
+        path: '/settings/language',
+        builder: (_, __) => const LanguageSettingsScreen(),
+      ),
+      GoRoute(
+        path: '/settings/security',
+        builder: (_, __) => const SecuritySettingsScreen(),
+      ),
+      GoRoute(
+        path: '/settings/backup',
+        builder: (_, __) => const BackupSettingsScreen(),
+      ),
+      GoRoute(
+        path: '/settings/profile',
+        builder: (_, __) => const ProfileSettingsScreen(),
       ),
     ],
   );

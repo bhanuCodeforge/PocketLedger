@@ -264,7 +264,7 @@ class ExportService {
   /// Shares a file at [filePath] via the platform share sheet.
   Future<void> shareFile(String filePath) async {
     final file = XFile(filePath);
-    await SharePlus.instance.shareXFiles([file]);
+    await Share.shareXFiles([file]);
   }
 
   // ── Helpers ─────────────────────────────────────────────────────────────────
