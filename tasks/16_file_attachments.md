@@ -25,53 +25,53 @@ CREATE TABLE attachments (
 ## Tasks
 
 ### Attachment Storage Strategy
-- [ ] Base path: `{app_documents_dir}/attachments/{entity_type}/{entity_id}/`
-- [ ] Copy picked files into above path (do NOT reference original location)
-- [ ] Use UUID as file name to avoid conflicts: `{uuid}.jpg`
-- [ ] Store relative path in DB (reconstruct absolute at runtime with `path_provider`)
+- [x] Base path: `{app_documents_dir}/attachments/{entity_type}/{entity_id}/`
+- [x] Copy picked files into above path (do NOT reference original location)
+- [x] Use UUID as file name to avoid conflicts: `{uuid}.jpg`
+- [x] Store relative path in DB (reconstruct absolute at runtime with `path_provider`)
 
 ### Attachment Service
-- [ ] `AttachmentService`:
-  - [ ] `pickFromGallery() → File?`
-  - [ ] `pickFromCamera() → File?`
-  - [ ] `saveAttachment(File source, String entityType, String entityId) → Attachment`
-  - [ ] `deleteAttachment(Attachment)` — removes file + DB record
-  - [ ] `getAttachments(String entityId, String entityType) → List<Attachment>`
-  - [ ] `getAbsolutePath(String relativePath) → String`
+- [x] `AttachmentService`:
+  - [x] `pickFromGallery() → File?`
+  - [x] `pickFromCamera() → File?`
+  - [x] `saveAttachment(File source, String entityType, String entityId) → Attachment`
+  - [x] `deleteAttachment(Attachment)` — removes file + DB record
+  - [x] `getAttachments(String entityId, String entityType) → List<Attachment>`
+  - [x] `getAbsolutePath(String relativePath) → String`
 
 ### Repository
-- [ ] `AttachmentRepository`:
-  - [ ] `insertAttachment(Attachment)`
-  - [ ] `getAttachmentsForEntity(String entityId, String entityType)`
-  - [ ] `deleteAttachment(String id)`
+- [x] `AttachmentRepository`:
+  - [x] `insertAttachment(Attachment)`
+  - [x] `getAttachmentsForEntity(String entityId, String entityType)`
+  - [x] `deleteAttachment(String id)`
 
 ### Attachment UI Component (reusable widget)
-- [ ] `AttachmentPicker` widget:
-  - [ ] Horizontally scrollable thumbnail list
-  - [ ] "+" add button at end
-  - [ ] On tap "+": bottom sheet with "Camera" / "Gallery" options
-  - [ ] Thumbnail: shows image preview for images, PDF icon for PDFs
-  - [ ] Tap thumbnail → full-screen viewer
-  - [ ] Long-press thumbnail → delete option
+- [x] `AttachmentPicker` widget:
+  - [x] Horizontally scrollable thumbnail list
+  - [x] "+" add button at end
+  - [x] On tap "+": bottom sheet with "Camera" / "Gallery" options
+  - [x] Thumbnail: shows image preview for images, PDF icon for PDFs
+  - [x] Tap thumbnail → full-screen viewer
+  - [x] Long-press thumbnail → delete option
 
 ### Full-Screen Image Viewer
-- [ ] Pinch-to-zoom
-- [ ] Swipe between multiple attachments
-- [ ] Share button (using `share_plus`)
-- [ ] Delete button (with confirm)
+- [x] Pinch-to-zoom
+- [x] Swipe between multiple attachments
+- [x] Share button (using `share_plus`)
+- [x] Delete button (with confirm)
 
 ### Permissions
-- [ ] Camera: requested on first camera use
-- [ ] Gallery / Storage: requested on first gallery use
-- [ ] Handle permanent denial gracefully (show settings redirect)
+- [x] Camera: requested on first camera use
+- [x] Gallery / Storage: requested on first gallery use
+- [x] Handle permanent denial gracefully (show settings redirect)
 
 ### Storage Size Warning
-- [ ] Track total attachment storage size
-- [ ] Warn user when attachments exceed 500 MB: "Attachment storage is large. Consider backup."
+- [x] Track total attachment storage size
+- [x] Warn user when attachments exceed 500 MB: "Attachment storage is large. Consider backup."
 
 ### Orphan Cleanup
-- [ ] On app startup, scan `attachments` dir for files with no matching DB record
-- [ ] Delete orphan files silently
+- [x] On app startup, scan `attachments` dir for files with no matching DB record
+- [x] Delete orphan files silently
 
 ---
 

@@ -30,58 +30,58 @@ CREATE TABLE budgets (
 ## Tasks
 
 ### Model
-- [ ] `Budget` model with `fromMap` / `toMap`
-- [ ] `BudgetType` enum: monthly, folder, category
-- [ ] Computed fields: `spent`, `remaining`, `percentUsed`
+- [x] `Budget` model with `fromMap` / `toMap`
+- [x] `BudgetType` enum: monthly, folder, category
+- [x] Computed fields: `spent`, `remaining`, `percentUsed`
 
 ### Repository
-- [ ] `BudgetRepository`:
-  - [ ] `getAllBudgets() → List<Budget>`
-  - [ ] `getActiveBudgets() → List<Budget>` — current month + folder/category
-  - [ ] `getBudgetById(String id) → Budget?`
-  - [ ] `createBudget(Budget)`
-  - [ ] `updateBudget(Budget)`
-  - [ ] `deleteBudget(String id)`
-  - [ ] `getSpentForBudget(Budget) → double` — query expenses for matching scope + period
+- [x] `BudgetRepository`:
+  - [x] `getAllBudgets() → List<Budget>`
+  - [x] `getActiveBudgets() → List<Budget>` — current month + folder/category
+  - [x] `getBudgetById(String id) → Budget?`
+  - [x] `createBudget(Budget)`
+  - [x] `updateBudget(Budget)`
+  - [x] `deleteBudget(String id)`
+  - [x] `getSpentForBudget(Budget) → double` — query expenses for matching scope + period
 
 ### Spent Calculation Logic
-- [ ] **Monthly budget:** SUM of expenses in `year=X, month=Y`
-- [ ] **Folder budget:** SUM of expenses in `folder_id=X` for current month
-- [ ] **Category budget:** SUM of expenses with `category=X` for current month
-- [ ] All calculations run via SQL aggregation, not in-memory
+- [x] **Monthly budget:** SUM of expenses in `year=X, month=Y`
+- [x] **Folder budget:** SUM of expenses in `folder_id=X` for current month
+- [x] **Category budget:** SUM of expenses with `category=X` for current month
+- [x] All calculations run via SQL aggregation, not in-memory
 
 ### Budget List Screen
-- [ ] Grouped: Monthly / Folder / Category sections
-- [ ] Each card: budget name, progress bar, spent/total, % used
-- [ ] Progress bar color: green (<50%), orange (50–79%), red (≥80%)
-- [ ] FAB to add budget
+- [x] Grouped: Monthly / Folder / Category sections
+- [x] Each card: budget name, progress bar, spent/total, % used
+- [x] Progress bar color: green (<50%), orange (50–79%), red (≥80%)
+- [x] FAB to add budget
 
 ### Add / Edit Budget Screen
-- [ ] Budget type selector
-- [ ] Name (auto-filled from type selection)
-- [ ] Amount input
-- [ ] Type-specific fields:
-  - [ ] Monthly: month/year picker (default current)
-  - [ ] Folder: folder selector
-  - [ ] Category: category selector
-- [ ] Alert toggles: 50% / 80% / 100%
-- [ ] Save → `createBudget`
+- [x] Budget type selector
+- [x] Name (auto-filled from type selection)
+- [x] Amount input
+- [x] Type-specific fields:
+  - [x] Monthly: month/year picker (default current)
+  - [x] Folder: folder selector
+  - [x] Category: category selector
+- [x] Alert toggles: 50% / 80% / 100%
+- [x] Save → `createBudget`
 
 ### Budget Alert Logic
-- [ ] After every expense addition, run `getSpentForBudget` for all affected budgets
-- [ ] If threshold crossed and not already alerted this session:
-  - [ ] Show in-app snackbar or banner: "Food budget 80% used"
-  - [ ] Schedule local notification (Module 15)
-- [ ] Track `last_alerted_threshold` in memory (not DB) to avoid repeated alerts per session
+- [x] After every expense addition, run `getSpentForBudget` for all affected budgets
+- [x] If threshold crossed and not already alerted this session:
+  - [x] Show in-app snackbar or banner: "Food budget 80% used"
+  - [x] Schedule local notification (Module 15)
+- [x] Track `last_alerted_threshold` in memory (not DB) to avoid repeated alerts per session
 
 ### Dashboard Widget
-- [ ] Show top 3 budgets by % used
-- [ ] Tap to go to Budget list
+- [x] Show top 3 budgets by % used
+- [x] Tap to go to Budget list
 
 ### Providers
-- [ ] `budgetsProvider` — `FutureProvider<List<Budget>>`
-- [ ] `budgetProgressProvider(budgetId)` — spent + percent
-- [ ] `budgetAlertsProvider` — budgets over alert thresholds
+- [x] `budgetsProvider` — `FutureProvider<List<Budget>>`
+- [x] `budgetProgressProvider(budgetId)` — spent + percent
+- [x] `budgetAlertsProvider` — budgets over alert thresholds
 
 ---
 

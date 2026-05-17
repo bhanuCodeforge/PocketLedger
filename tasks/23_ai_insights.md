@@ -21,7 +21,7 @@ On-device rule-based engine that analyzes spending patterns and surfaces actiona
 | `idle_wallet` | "Cash wallet hasn't had activity in 30 days" |
 
 ### Insight Engine
-- [ ] `InsightEngine.run(InsightContext ctx) → List<Insight>`
+- [x] `InsightEngine.run(InsightContext ctx) → List<Insight>`
   - Called after app launch and after each significant write (expense, income, loan)
   - Runs all insight rules in sequence
   - Deduplicates against existing `ai_insights` table
@@ -34,8 +34,8 @@ On-device rule-based engine that analyzes spending patterns and surfaces actiona
 Compare current month total per category vs previous month total per category.
 If current > previous × 1.3 (30% spike) → generate spending_spike insight.
 ```
-- [ ] Implement for top 5 categories
-- [ ] Threshold configurable (default: 30%)
+- [x] Implement for top 5 categories
+- [x] Threshold configurable (default: 30%)
 
 #### Rule 2: Budget Burn Rate
 ```
@@ -44,8 +44,8 @@ Budget spent / budget total = spent fraction.
 If spent_fraction > elapsed_fraction × 1.2 → "at risk of exceeding budget".
 Estimate days to depletion: remaining_budget / daily_avg_spend.
 ```
-- [ ] Run for all active budgets
-- [ ] Only trigger if at least 7 days into the month
+- [x] Run for all active budgets
+- [x] Only trigger if at least 7 days into the month
 
 #### Rule 3: Savings Positive Trend
 ```
@@ -59,7 +59,7 @@ Only trigger if saving ≥ 5% improvement.
 For each expense: if amount > category_90th_percentile × 2 → anomaly.
 90th percentile computed from last 3 months of data for that category.
 ```
-- [ ] Only flag if category has ≥ 10 historical entries (avoid false positives on sparse data)
+- [x] Only flag if category has ≥ 10 historical entries (avoid false positives on sparse data)
 
 #### Rule 5: Top Category
 ```
@@ -105,33 +105,33 @@ class InsightContext {
 ```
 
 ### Insights Screen
-- [ ] List of active (non-expired) insights, newest first
-- [ ] Each card:
-  - [ ] Icon (color-coded by type: blue=info, orange=warning, red=alert, green=positive)
-  - [ ] Title (bold)
-  - [ ] Body text
-  - [ ] Supporting data chip (e.g., "₹3,450 / ₹5,000")
-  - [ ] "View Details" link → navigates to relevant screen (budget, category report, etc.)
-  - [ ] Dismiss (X) button → marks `is_read = 1`
-- [ ] "Refresh Insights" pull-to-refresh
-- [ ] Empty state: "All looks good! No insights right now."
+- [x] List of active (non-expired) insights, newest first
+- [x] Each card:
+  - [x] Icon (color-coded by type: blue=info, orange=warning, red=alert, green=positive)
+  - [x] Title (bold)
+  - [x] Body text
+  - [x] Supporting data chip (e.g., "₹3,450 / ₹5,000")
+  - [x] "View Details" link → navigates to relevant screen (budget, category report, etc.)
+  - [x] Dismiss (X) button → marks `is_read = 1`
+- [x] "Refresh Insights" pull-to-refresh
+- [x] Empty state: "All looks good! No insights right now."
 
 ### Dashboard Integration
-- [ ] Show top 2 unread insights as cards on Dashboard
-- [ ] Insights bell icon in AppBar with unread badge count
-- [ ] Tap bell → `/insights`
+- [x] Show top 2 unread insights as cards on Dashboard
+- [x] Insights bell icon in AppBar with unread badge count
+- [x] Tap bell → `/insights`
 
 ### Insight Expiry
-- [ ] `spending_spike` → valid until end of current month
-- [ ] `budget_risk` → valid until budget period ends
-- [ ] `anomaly` → valid for 7 days
-- [ ] `saving_opportunity` → valid for 14 days
-- [ ] On app launch: delete expired insights (`valid_until < now`)
+- [x] `spending_spike` → valid until end of current month
+- [x] `budget_risk` → valid until budget period ends
+- [x] `anomaly` → valid for 7 days
+- [x] `saving_opportunity` → valid for 14 days
+- [x] On app launch: delete expired insights (`valid_until < now`)
 
 ### Performance
-- [ ] `InsightEngine.run()` runs in an `Isolate` to avoid blocking UI
-- [ ] Context data pre-fetched from DB before spawning isolate
-- [ ] Total run time target: < 500 ms on 3 months of data
+- [x] `InsightEngine.run()` runs in an `Isolate` to avoid blocking UI
+- [x] Context data pre-fetched from DB before spawning isolate
+- [x] Total run time target: < 500 ms on 3 months of data
 
 ---
 

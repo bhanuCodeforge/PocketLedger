@@ -44,114 +44,114 @@ CREATE TABLE loan_payments (
 ## Tasks
 
 ### Interest Calculation Utilities
-- [ ] `LoanCalculator.simpleInterest(principal, rate, years) → double`
+- [x] `LoanCalculator.simpleInterest(principal, rate, years) → double`
   - Formula: `SI = (P × R × T) / 100`
-- [ ] `LoanCalculator.compoundAmount(principal, rate, n, years) → double`
+- [x] `LoanCalculator.compoundAmount(principal, rate, n, years) → double`
   - Formula: `A = P × (1 + r/n)^(n×t)`
-- [ ] `LoanCalculator.totalDue(Loan, List<LoanPayment>) → double`
+- [x] `LoanCalculator.totalDue(Loan, List<LoanPayment>) → double`
   - Total due = principal + accrued interest − payments made
-- [ ] `LoanCalculator.daysSince(DateTime start) → double` — for T computation
-- [ ] Unit tests for all formulas
+- [x] `LoanCalculator.daysSince(DateTime start) → double` — for T computation
+- [x] Unit tests for all formulas
 
 ### Model
-- [ ] `Loan` model with `fromMap` / `toMap`
-- [ ] `LoanPayment` model with `fromMap` / `toMap`
-- [ ] `LoanType` enum: given, taken
-- [ ] `InterestType` enum: simple, compound
+- [x] `Loan` model with `fromMap` / `toMap`
+- [x] `LoanPayment` model with `fromMap` / `toMap`
+- [x] `LoanType` enum: given, taken
+- [x] `InterestType` enum: simple, compound
 
 ### Repository
-- [ ] `LoanRepository`:
-  - [ ] `getAllLoans() → List<Loan>`
-  - [ ] `getActiveLoans() → List<Loan>`
-  - [ ] `getOverdueLoans() → List<Loan>`
-  - [ ] `getLoanById(String id) → Loan?`
-  - [ ] `getLoansByContact(String contactId) → List<Loan>`
-  - [ ] `createLoan(Loan)`
-  - [ ] `updateLoan(Loan)`
-  - [ ] `markSettled(String id)`
-  - [ ] `getPaymentsForLoan(String loanId) → List<LoanPayment>`
-  - [ ] `addPayment(LoanPayment)`
-  - [ ] `deletePayment(String paymentId)`
+- [x] `LoanRepository`:
+  - [x] `getAllLoans() → List<Loan>`
+  - [x] `getActiveLoans() → List<Loan>`
+  - [x] `getOverdueLoans() → List<Loan>`
+  - [x] `getLoanById(String id) → Loan?`
+  - [x] `getLoansByContact(String contactId) → List<Loan>`
+  - [x] `createLoan(Loan)`
+  - [x] `updateLoan(Loan)`
+  - [x] `markSettled(String id)`
+  - [x] `getPaymentsForLoan(String loanId) → List<LoanPayment>`
+  - [x] `addPayment(LoanPayment)`
+  - [x] `deletePayment(String paymentId)`
 
 ### Loan List Screen
-- [ ] Tabs: Given | Taken | Overdue | Settled
-- [ ] Each card: contact name, principal, total due (with interest), due date, status badge
-- [ ] Color code: overdue = red, due soon (≤7 days) = orange, settled = grey
-- [ ] FAB to add loan
+- [x] Tabs: Given | Taken | Overdue | Settled
+- [x] Each card: contact name, principal, total due (with interest), due date, status badge
+- [x] Color code: overdue = red, due soon (≤7 days) = orange, settled = grey
+- [x] FAB to add loan
 
 ### Add / Edit Loan Screen
-- [ ] Type toggle: Money Given / Money Taken
-- [ ] Contact selector (from contacts table)
-- [ ] Principal amount
-- [ ] Interest rate (%) — optional, default 0
-- [ ] Interest type: Simple / Compound
-- [ ] Compound frequency: Monthly / Quarterly / Half-yearly / Yearly
-- [ ] Start date (default today)
-- [ ] Due date picker (optional)
-- [ ] Wallet selector
-- [ ] Notes
-- [ ] Save → validate → `createLoan`
+- [x] Type toggle: Money Given / Money Taken
+- [x] Contact selector (from contacts table)
+- [x] Principal amount
+- [x] Interest rate (%) — optional, default 0
+- [x] Interest type: Simple / Compound
+- [x] Compound frequency: Monthly / Quarterly / Half-yearly / Yearly
+- [x] Start date (default today)
+- [x] Due date picker (optional)
+- [x] Wallet selector
+- [x] Notes
+- [x] Save → validate → `createLoan`
 
 ### Loan Detail Screen
-- [ ] Summary: principal, interest accrued, amount paid, amount due
-- [ ] Payment history list (date, amount, wallet)
-- [ ] "Add Payment" button
-- [ ] Interest table (monthly breakdown for next 12 months)
-- [ ] "Mark as Settled" button (only when total paid ≥ total due)
-- [ ] Edit / Delete loan
+- [x] Summary: principal, interest accrued, amount paid, amount due
+- [x] Payment history list (date, amount, wallet)
+- [x] "Add Payment" button
+- [x] Interest table (monthly breakdown for next 12 months)
+- [x] "Mark as Settled" button (only when total paid ≥ total due)
+- [x] Edit / Delete loan
 
 ### Add Payment Screen
-- [ ] Amount (≤ remaining due)
-- [ ] Date
-- [ ] Wallet selector
-- [ ] Notes
-- [ ] Save → `addPayment`; optionally auto-settle if fully paid
+- [x] Amount (≤ remaining due)
+- [x] Date
+- [x] Wallet selector
+- [x] Notes
+- [x] Save → `addPayment`; optionally auto-settle if fully paid
 
 ### Overdue Detection
-- [ ] On app launch, run query: loans where `due_date < today AND status = 'active'`
-- [ ] Update `status = 'overdue'` for those loans
-- [ ] Schedule local notification (Module 15) for loans due in 7/3/1 days
+- [x] On app launch, run query: loans where `due_date < today AND status = 'active'`
+- [x] Update `status = 'overdue'` for those loans
+- [x] Schedule local notification (Module 15) for loans due in 7/3/1 days
 
 ### Providers
-- [ ] `loansProvider` — `FutureProvider<List<Loan>>`
-- [ ] `pendingLoansProvider` — active + overdue count for dashboard
-- [ ] `loanDetailProvider(loanId)` — payments + computed amounts
+- [x] `loansProvider` — `FutureProvider<List<Loan>>`
+- [x] `pendingLoansProvider` — active + overdue count for dashboard
+- [x] `loanDetailProvider(loanId)` — payments + computed amounts
 
 ---
 
 ## Edge Cases & Error Handling
 
 ### Interest Calculation
-- [ ] Zero interest rate → `totalDue = principal - payments` (no interest added)
-- [ ] Very long duration (>10 years compound) → no overflow; use `double` throughout, document precision limit
-- [ ] Due date before start date → validation error on form: "Due date must be after start date"
-- [ ] Elapsed time = 0 days → SI = 0, compound = principal (correct)
-- [ ] Partial payment > remaining due → reject with error: "Payment exceeds remaining balance"
+- [x] Zero interest rate → `totalDue = principal - payments` (no interest added)
+- [x] Very long duration (>10 years compound) → no overflow; use `double` throughout, document precision limit
+- [x] Due date before start date → validation error on form: "Due date must be after start date"
+- [x] Elapsed time = 0 days → SI = 0, compound = principal (correct)
+- [x] Partial payment > remaining due → reject with error: "Payment exceeds remaining balance"
 
 ### Loan Lifecycle
-- [ ] Settled loan: prevent adding more payments; show "This loan is settled" badge
-- [ ] Reopening a settled loan (e.g., partial reversal): allow only via explicit "Reopen" action with confirmation
-- [ ] Deleting a loan with payments → cascade delete all `loan_payments` (FK ON DELETE CASCADE already defined)
-- [ ] Contact deleted while loan active → loans retain `contact_id`; show "[Deleted contact]" as name
+- [x] Settled loan: prevent adding more payments; show "This loan is settled" badge
+- [x] Reopening a settled loan (e.g., partial reversal): allow only via explicit "Reopen" action with confirmation
+- [x] Deleting a loan with payments → cascade delete all `loan_payments` (FK ON DELETE CASCADE already defined)
+- [x] Contact deleted while loan active → loans retain `contact_id`; show "[Deleted contact]" as name
 
 ### Overdue Detection
-- [ ] Run overdue check both at launch AND when app resumes from background
-- [ ] Loans without a due date are never marked overdue (status stays `active`)
-- [ ] Overdue loans that get a payment should NOT auto-clear overdue status — only "Mark Settled" resolves it
+- [x] Run overdue check both at launch AND when app resumes from background
+- [x] Loans without a due date are never marked overdue (status stays `active`)
+- [x] Overdue loans that get a payment should NOT auto-clear overdue status — only "Mark Settled" resolves it
 
 ### Floating Point Precision
-- [ ] All currency amounts stored as `REAL` (8-byte float, ~15 significant digits)
-- [ ] Round all displayed amounts to 2 decimal places using `toStringAsFixed(2)` — never show `₹99.999999`
-- [ ] When comparing `totalPaid >= totalDue`, use tolerance: `(totalPaid - totalDue).abs() < 0.01`
+- [x] All currency amounts stored as `REAL` (8-byte float, ~15 significant digits)
+- [x] Round all displayed amounts to 2 decimal places using `toStringAsFixed(2)` — never show `₹99.999999`
+- [x] When comparing `totalPaid >= totalDue`, use tolerance: `(totalPaid - totalDue).abs() < 0.01`
 
 ---
 
 ## UI Micro-Interactions
-- [ ] Loan card: due date shown as relative ("Due in 3 days" / "Overdue by 2 days") using `intl` `RelativeDateFormat`
-- [ ] Overdue loans: pulsing red border animation on card
-- [ ] Interest accrual: live-updating counter on Loan Detail screen (updates every second via `Timer.periodic`)
-- [ ] "Mark as Settled" button: only enabled when `totalPaid >= totalDue × 0.99` (within 1%)
-- [ ] Payment added: green flash animation on "Amount Paid" total before updating
+- [x] Loan card: due date shown as relative ("Due in 3 days" / "Overdue by 2 days") using `intl` `RelativeDateFormat`
+- [x] Overdue loans: pulsing red border animation on card
+- [x] Interest accrual: live-updating counter on Loan Detail screen (updates every second via `Timer.periodic`)
+- [x] "Mark as Settled" button: only enabled when `totalPaid >= totalDue × 0.99` (within 1%)
+- [x] Payment added: green flash animation on "Amount Paid" total before updating
 
 ---
 

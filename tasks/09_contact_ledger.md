@@ -25,44 +25,44 @@ CREATE TABLE contacts (
 ## Tasks
 
 ### Model
-- [ ] `Contact` model with `fromMap` / `toMap`
-- [ ] `ContactCategory` enum: friend, family, borrower, customer, other
-- [ ] Computed field: `outstandingBalance` (loans given − loans taken, net)
+- [x] `Contact` model with `fromMap` / `toMap`
+- [x] `ContactCategory` enum: friend, family, borrower, customer, other
+- [x] Computed field: `outstandingBalance` (loans given − loans taken, net)
 
 ### Repository
-- [ ] `ContactRepository`:
-  - [ ] `getAllContacts() → List<Contact>`
-  - [ ] `getContactById(String id) → Contact?`
-  - [ ] `searchContacts(String query) → List<Contact>`
-  - [ ] `createContact(Contact)`
-  - [ ] `updateContact(Contact)`
-  - [ ] `deleteContact(String id)` — soft delete check (block if has active loans)
-  - [ ] `getContactLedger(String id)` → combined expenses/income/loans linked to contact
+- [x] `ContactRepository`:
+  - [x] `getAllContacts() → List<Contact>`
+  - [x] `getContactById(String id) → Contact?`
+  - [x] `searchContacts(String query) → List<Contact>`
+  - [x] `createContact(Contact)`
+  - [x] `updateContact(Contact)`
+  - [x] `deleteContact(String id)` — soft delete check (block if has active loans)
+  - [x] `getContactLedger(String id)` → combined expenses/income/loans linked to contact
 
 ### Contact List Screen
-- [ ] Alphabetically grouped list (A–Z section headers)
-- [ ] Each row: avatar/initials, name, category badge, outstanding balance
-- [ ] Search bar at top (real-time filter)
-- [ ] FAB to add contact
-- [ ] Swipe to edit / delete
+- [x] Alphabetically grouped list (A–Z section headers)
+- [x] Each row: avatar/initials, name, category badge, outstanding balance
+- [x] Search bar at top (real-time filter)
+- [x] FAB to add contact
+- [x] Swipe to edit / delete
 
 ### Add / Edit Contact Screen
-- [ ] Name (required)
-- [ ] Phone number
-- [ ] Email
-- [ ] Category selector
-- [ ] Avatar: pick from gallery or auto-generate initials avatar
-- [ ] Notes
-- [ ] Save → `createContact` / `updateContact`
+- [x] Name (required)
+- [x] Phone number
+- [x] Email
+- [x] Category selector
+- [x] Avatar: pick from gallery or auto-generate initials avatar
+- [x] Notes
+- [x] Save → `createContact` / `updateContact`
 
 ### Contact Detail Screen
-- [ ] Contact info header (avatar, name, phone, email)
-- [ ] Outstanding balance summary (net amount owed to/by)
-- [ ] Tabs:
-  - [ ] **Transactions** — linked expenses and income
-  - [ ] **Loans** — active and settled loans with this contact
-  - [ ] **Groups** — shared group splits involving this contact
-- [ ] "Add Expense", "Add Loan" quick action buttons
+- [x] Contact info header (avatar, name, phone, email)
+- [x] Outstanding balance summary (net amount owed to/by)
+- [x] Tabs:
+  - [x] **Transactions** — linked expenses and income
+  - [x] **Loans** — active and settled loans with this contact
+  - [x] **Groups** — shared group splits involving this contact
+- [x] "Add Expense", "Add Loan" quick action buttons
 
 ### Outstanding Balance Calculation
 ```sql
@@ -72,11 +72,11 @@ AS net_balance
 FROM loans l
 WHERE l.contact_id = ? AND l.status != 'settled';
 ```
-- [ ] Implement via `LoanRepository.getNetBalanceForContact(contactId)`
+- [x] Implement via `LoanRepository.getNetBalanceForContact(contactId)`
 
 ### Providers
-- [ ] `contactsProvider` — `FutureProvider<List<Contact>>`
-- [ ] `contactDetailProvider(contactId)` — contact + ledger summary
+- [x] `contactsProvider` — `FutureProvider<List<Contact>>`
+- [x] `contactDetailProvider(contactId)` — contact + ledger summary
 
 ---
 

@@ -18,8 +18,8 @@ CREATE TABLE change_log (
   synced      INTEGER DEFAULT 0
 );
 ```
-- [ ] Add SQLite triggers for each major table to auto-insert into `change_log` on INSERT / UPDATE / DELETE
-- [ ] Example trigger:
+- [x] Add SQLite triggers for each major table to auto-insert into `change_log` on INSERT / UPDATE / DELETE
+- [x] Example trigger:
   ```sql
   CREATE TRIGGER expenses_after_insert
   AFTER INSERT ON expenses
@@ -28,17 +28,17 @@ CREATE TABLE change_log (
     VALUES ('expense', NEW.id, 'insert', datetime('now'));
   END;
   ```
-- [ ] Create triggers for: `expenses`, `income`, `loans`, `loan_payments`, `wallets`, `folders`, `contacts`, `groups`, `group_transactions`, `budgets`
+- [x] Create triggers for: `expenses`, `income`, `loans`, `loan_payments`, `wallets`, `folders`, `contacts`, `groups`, `group_transactions`, `budgets`
 
 ### Change Detection Service
-- [ ] `ChangeDetectionService`:
-  - [ ] `getUnsynced() → List<ChangeLog>` — rows where `synced = 0`
-  - [ ] `markSynced(List<int> ids)` — set `synced = 1`
-  - [ ] `hasUnsynced() → bool` — quick check for pending changes
-  - [ ] `countUnsynced() → int`
+- [x] `ChangeDetectionService`:
+  - [x] `getUnsynced() → List<ChangeLog>` — rows where `synced = 0`
+  - [x] `markSynced(List<int> ids)` — set `synced = 1`
+  - [x] `hasUnsynced() → bool` — quick check for pending changes
+  - [x] `countUnsynced() → int`
 
 ### Incremental Backup Logic
-- [ ] On backup trigger:
+- [x] On backup trigger:
   1. Check `hasUnsynced()` — skip if nothing changed
   2. Fetch unsynced change log entries
   3. For each changed `entity_id`, extract full record from its table
@@ -55,15 +55,15 @@ CREATE TABLE change_log (
      ```
   5. Upload patch file to Drive
   6. Mark change log entries as synced
-- [ ] Full backup still done weekly (or on demand); incremental done on daily schedule
+- [x] Full backup still done weekly (or on demand); incremental done on daily schedule
 
 ### Conflict Resolution
-- [ ] Conflict scenario: backup from device A restored on device B which has newer local data
-- [ ] Detection: compare `changed_at` timestamps from both sides
-- [ ] Resolution strategy: **Last Write Wins** (higher `updated_at` timestamp wins)
-- [ ] `ConflictResolver`:
-  - [ ] `resolve(localRecord, remoteRecord) → Record` — returns winner
-  - [ ] Log all conflicts to `conflict_log` table for user inspection (optional v2)
+- [x] Conflict scenario: backup from device A restored on device B which has newer local data
+- [x] Detection: compare `changed_at` timestamps from both sides
+- [x] Resolution strategy: **Last Write Wins** (higher `updated_at` timestamp wins)
+- [x] `ConflictResolver`:
+  - [x] `resolve(localRecord, remoteRecord) → Record` — returns winner
+  - [x] Log all conflicts to `conflict_log` table for user inspection (optional v2)
 
 ### Conflict Log Table
 ```sql
@@ -79,19 +79,19 @@ CREATE TABLE conflict_log (
 ```
 
 ### Sync Status UI
-- [ ] Settings > Backup: show sync status chip:
+- [x] Settings > Backup: show sync status chip:
   - `Up to date` (all synced)
   - `X changes pending` (unsynced count)
   - `Syncing...` (spinner during upload)
-- [ ] Tap chip → Sync detail screen showing pending change entities
+- [x] Tap chip → Sync detail screen showing pending change entities
 
 ### Manual Sync Trigger
-- [ ] "Sync Now" button in Settings > Backup
-- [ ] Runs full backup if >7 days since last full, else incremental
+- [x] "Sync Now" button in Settings > Backup
+- [x] Runs full backup if >7 days since last full, else incremental
 
 ### Providers
-- [ ] `syncStatusProvider` — `StateNotifierProvider<SyncStatusNotifier>`
-- [ ] `unsyncedCountProvider` — `StreamProvider<int>` (watches `change_log`)
+- [x] `syncStatusProvider` — `StateNotifierProvider<SyncStatusNotifier>`
+- [x] `unsyncedCountProvider` — `StreamProvider<int>` (watches `change_log`)
 
 ---
 

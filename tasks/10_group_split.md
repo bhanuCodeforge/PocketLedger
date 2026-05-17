@@ -60,77 +60,77 @@ CREATE TABLE group_transaction_splits (
 ## Tasks
 
 ### Models
-- [ ] `Group`, `GroupMember`, `GroupTransaction`, `GroupSplit` models
-- [ ] `SplitType` enum: equal, custom, percentage
+- [x] `Group`, `GroupMember`, `GroupTransaction`, `GroupSplit` models
+- [x] `SplitType` enum: equal, custom, percentage
 
 ### Split Calculation Utilities
-- [ ] `SplitCalculator.equalSplit(total, memberCount) → List<double>`
-- [ ] `SplitCalculator.customSplit(List<double> amounts) → List<double>` — validates sum == total
-- [ ] `SplitCalculator.percentageSplit(total, List<double> percentages) → List<double>`
+- [x] `SplitCalculator.equalSplit(total, memberCount) → List<double>`
+- [x] `SplitCalculator.customSplit(List<double> amounts) → List<double>` — validates sum == total
+- [x] `SplitCalculator.percentageSplit(total, List<double> percentages) → List<double>`
 
 ### Settlement Calculation
-- [ ] `GroupSettlementCalculator.getBalances(groupId) → Map<memberId, double>`
+- [x] `GroupSettlementCalculator.getBalances(groupId) → Map<memberId, double>`
   - Positive = member is owed money; Negative = member owes money
-- [ ] `GroupSettlementCalculator.getOptimalSettlements(balances) → List<Settlement>`
+- [x] `GroupSettlementCalculator.getOptimalSettlements(balances) → List<Settlement>`
   - Uses greedy simplification to minimize number of transfers
 
 ### Repository
-- [ ] `GroupRepository`:
-  - [ ] `getAllGroups() → List<Group>`
-  - [ ] `getGroupById(String id) → Group?`
-  - [ ] `createGroup(Group, List<GroupMember>)`
-  - [ ] `updateGroup(Group)`
-  - [ ] `archiveGroup(String id)`
-  - [ ] `getMembers(String groupId) → List<GroupMember>`
-  - [ ] `addMember(GroupMember)`
-  - [ ] `removeMember(String memberId)`
-  - [ ] `getTransactions(String groupId) → List<GroupTransaction>`
-  - [ ] `addTransaction(GroupTransaction, List<GroupSplit>)`
-  - [ ] `editTransaction(GroupTransaction, List<GroupSplit>)`
-  - [ ] `deleteTransaction(String id)`
-  - [ ] `markSplitSettled(String splitId)`
-  - [ ] `getGroupBalances(String groupId) → Map<String, double>`
+- [x] `GroupRepository`:
+  - [x] `getAllGroups() → List<Group>`
+  - [x] `getGroupById(String id) → Group?`
+  - [x] `createGroup(Group, List<GroupMember>)`
+  - [x] `updateGroup(Group)`
+  - [x] `archiveGroup(String id)`
+  - [x] `getMembers(String groupId) → List<GroupMember>`
+  - [x] `addMember(GroupMember)`
+  - [x] `removeMember(String memberId)`
+  - [x] `getTransactions(String groupId) → List<GroupTransaction>`
+  - [x] `addTransaction(GroupTransaction, List<GroupSplit>)`
+  - [x] `editTransaction(GroupTransaction, List<GroupSplit>)`
+  - [x] `deleteTransaction(String id)`
+  - [x] `markSplitSettled(String splitId)`
+  - [x] `getGroupBalances(String groupId) → Map<String, double>`
 
 ### Group List Screen
-- [ ] Cards: group name, member count, total spent, your balance
-- [ ] Status badge (active / settled)
-- [ ] FAB to create group
+- [x] Cards: group name, member count, total spent, your balance
+- [x] Status badge (active / settled)
+- [x] FAB to create group
 
 ### Create / Edit Group Screen
-- [ ] Group name, description, icon, color
-- [ ] Add members:
-  - [ ] "You" always included
-  - [ ] Add from contacts or enter name manually
-- [ ] Save
+- [x] Group name, description, icon, color
+- [x] Add members:
+  - [x] "You" always included
+  - [x] Add from contacts or enter name manually
+- [x] Save
 
 ### Group Detail Screen
-- [ ] Header: name, total spent, member count
-- [ ] Tabs:
-  - [ ] **Expenses** — list of group transactions
-  - [ ] **Balances** — who owes whom
-  - [ ] **Settlements** — suggested transactions to settle up
-- [ ] FAB to add expense
+- [x] Header: name, total spent, member count
+- [x] Tabs:
+  - [x] **Expenses** — list of group transactions
+  - [x] **Balances** — who owes whom
+  - [x] **Settlements** — suggested transactions to settle up
+- [x] FAB to add expense
 
 ### Add Group Expense Screen
-- [ ] Description, total amount, date
-- [ ] Paid by: member selector
-- [ ] Split type: Equal / Custom / Percentage
-- [ ] Equal split: auto-divide, show each share
-- [ ] Custom split: amount input per member; validate sum == total
-- [ ] Percentage split: % input per member; validate sum == 100%
-- [ ] Save → create `group_transaction` + `group_transaction_splits`
+- [x] Description, total amount, date
+- [x] Paid by: member selector
+- [x] Split type: Equal / Custom / Percentage
+- [x] Equal split: auto-divide, show each share
+- [x] Custom split: amount input per member; validate sum == total
+- [x] Percentage split: % input per member; validate sum == 100%
+- [x] Save → create `group_transaction` + `group_transaction_splits`
 
 ### Balances Tab
-- [ ] Net balance per member (positive = owed, negative = owes)
-- [ ] "Mark as Settled" on individual split or bulk settle per member pair
+- [x] Net balance per member (positive = owed, negative = owes)
+- [x] "Mark as Settled" on individual split or bulk settle per member pair
 
 ### Settlements Tab
-- [ ] Optimal settlement list (e.g., "Alice → Bob: ₹500")
-- [ ] Tap to record settlement (creates a ₹0 split or marks splits as settled)
+- [x] Optimal settlement list (e.g., "Alice → Bob: ₹500")
+- [x] Tap to record settlement (creates a ₹0 split or marks splits as settled)
 
 ### Providers
-- [ ] `groupsProvider` — `FutureProvider<List<Group>>`
-- [ ] `groupDetailProvider(groupId)` — transactions + balances
+- [x] `groupsProvider` — `FutureProvider<List<Group>>`
+- [x] `groupDetailProvider(groupId)` — transactions + balances
 
 ---
 

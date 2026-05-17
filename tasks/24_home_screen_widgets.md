@@ -8,9 +8,9 @@ Android home screen widgets and iOS Lock Screen / Home Screen widgets showing ke
 ## Tasks
 
 ### Package
-- [ ] Add `home_widget` to `pubspec.yaml`
-- [ ] Android: configure `AppWidgetProvider` in `AndroidManifest.xml`
-- [ ] iOS: create a Widget Extension target in Xcode (SwiftUI)
+- [x] Add `home_widget` to `pubspec.yaml`
+- [x] Android: configure `AppWidgetProvider` in `AndroidManifest.xml`
+- [x] iOS: create a Widget Extension target in Xcode (SwiftUI)
 
 ---
 
@@ -75,24 +75,24 @@ Android native reads from `SharedPreferences` in `AppWidgetProvider.onUpdate()`.
 iOS Swift reads from App Group `UserDefaults`.
 
 ### App Group Setup
-- [ ] iOS: create App Group `group.com.pocketledger.widget`
-- [ ] Register app + widget extension in same App Group in Xcode
-- [ ] Flutter side: configure `home_widget` with App Group ID
+- [x] iOS: create App Group `group.com.pocketledger.widget`
+- [x] Register app + widget extension in same App Group in Xcode
+- [x] Flutter side: configure `home_widget` with App Group ID
 
 ---
 
 ## Widget Configuration Screen
-- [ ] Long-press widget → "Configure" → opens in-app screen
-- [ ] Wallet selector for Wallet Balance widget
-- [ ] Budget count selector for Budget Status widget (1–5)
-- [ ] Save → triggers widget re-render
+- [x] Long-press widget → "Configure" → opens in-app screen
+- [x] Wallet selector for Wallet Balance widget
+- [x] Budget count selector for Budget Status widget (1–5)
+- [x] Save → triggers widget re-render
 
 ---
 
 ## Update Strategy
-- [ ] Update widget data after every expense/income write (in repository layer)
-- [ ] Limit widget updates to max 1 per minute (Android OS limits to ~100/day)
-- [ ] Fallback: widget shows "Open app to refresh" if data is stale > 6 hours
+- [x] Update widget data after every expense/income write (in repository layer)
+- [x] Limit widget updates to max 1 per minute (Android OS limits to ~100/day)
+- [x] Fallback: widget shows "Open app to refresh" if data is stale > 6 hours
 
 ---
 

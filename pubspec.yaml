@@ -1,0 +1,130 @@
+name: pocket_ledger
+description: PocketLedger - Personal Finance Manager
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # State management
+  flutter_riverpod: ^2.5.1
+  riverpod_annotation: ^2.3.5
+
+  # Navigation
+  go_router: ^13.2.0
+
+  # Database
+  sqflite: ^2.3.3+1
+  path_provider: ^2.1.3
+  path: ^1.9.0
+
+  # Security
+  crypto: ^3.0.3
+  flutter_secure_storage: ^9.0.0
+  local_auth: ^2.2.0
+  encrypt: ^5.0.3
+
+  # Unique IDs
+  uuid: ^4.3.3
+
+  # Google services
+  google_sign_in: ^6.2.1
+  googleapis: ^12.0.0
+
+  # Notifications
+  flutter_local_notifications: ^17.2.2
+  timezone: ^0.9.4
+
+  # Charts
+  fl_chart: ^0.68.0
+
+  # Media
+  image_picker: ^1.1.2
+
+  # Export / share
+  share_plus: ^9.0.0
+  pdf: ^3.11.1
+  excel: ^4.0.3
+  csv: ^6.0.0
+
+  # Permissions
+  permission_handler: ^11.3.1
+
+  # Compression / backup
+  archive: ^3.6.1
+
+  # i18n
+  intl: ^0.19.0
+
+  # OCR
+  google_mlkit_text_recognition: ^0.13.0
+
+  # Home widgets
+  home_widget: ^0.5.0
+
+  # Background tasks
+  workmanager: ^0.5.2
+
+  # Misc
+  collection: ^1.18.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  riverpod_generator: ^2.4.0
+  build_runner: ^2.4.9
+  mocktail: ^1.0.3
+  sqflite_common_ffi: ^2.3.3
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.4.1
+
+flutter:
+  uses-material-design: true
+  generate: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+
+  # fonts:
+  #   - family: Inter
+  #     fonts:
+  #       - asset: assets/fonts/Inter-Regular.ttf
+  #       - asset: assets/fonts/Inter-Medium.ttf
+  #         weight: 500
+  #       - asset: assets/fonts/Inter-SemiBold.ttf
+  #         weight: 600
+  #       - asset: assets/fonts/Inter-Bold.ttf
+  #         weight: 700
+  # Note: Download Inter fonts to assets/fonts/ to enable. Flutter falls back to system font.
+
+# ── Flutter Launcher Icons ────────────────────────────────────────────────────
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/app_icon.png"
+  min_sdk_android: 21
+  adaptive_icon_background: "#2563EB"
+  adaptive_icon_foreground: "assets/icons/app_icon_foreground.png"
+
+# ── Flutter Native Splash ─────────────────────────────────────────────────────
+flutter_native_splash:
+  color: "#2563EB"
+  color_dark: "#0B1120"
+  image: assets/images/splash_logo.png
+  android_12:
+    image: assets/images/splash_logo.png
+    color: "#2563EB"
+    color_dark: "#0B1120"
+  fullscreen: false
+  android: true
+  ios: true

@@ -26,55 +26,55 @@ CREATE TABLE folders (
 ## Tasks
 
 ### Model
-- [ ] `Folder` model with `fromMap` / `toMap`
-- [ ] `children` computed field: `List<Folder>` (populated in repository tree query)
-- [ ] `depth` computed field (0 = root, 1 = child, 2 = grandchild — max depth 3)
+- [x] `Folder` model with `fromMap` / `toMap`
+- [x] `children` computed field: `List<Folder>` (populated in repository tree query)
+- [x] `depth` computed field (0 = root, 1 = child, 2 = grandchild — max depth 3)
 
 ### Repository
-- [ ] `FolderRepository`:
-  - [ ] `getAllFolders() → List<Folder>` (flat list)
-  - [ ] `getFolderTree() → List<Folder>` (nested, children populated)
-  - [ ] `getRootFolders() → List<Folder>`
-  - [ ] `getChildFolders(String parentId) → List<Folder>`
-  - [ ] `getFolderById(String id) → Folder?`
-  - [ ] `createFolder(Folder)`
-  - [ ] `updateFolder(Folder)`
-  - [ ] `archiveFolder(String id)` — archives recursively
-  - [ ] `reorderFolders(List<String> ids)` — updates sort_order
+- [x] `FolderRepository`:
+  - [x] `getAllFolders() → List<Folder>` (flat list)
+  - [x] `getFolderTree() → List<Folder>` (nested, children populated)
+  - [x] `getRootFolders() → List<Folder>`
+  - [x] `getChildFolders(String parentId) → List<Folder>`
+  - [x] `getFolderById(String id) → Folder?`
+  - [x] `createFolder(Folder)`
+  - [x] `updateFolder(Folder)`
+  - [x] `archiveFolder(String id)` — archives recursively
+  - [x] `reorderFolders(List<String> ids)` — updates sort_order
 
 ### Seed Data
-- [ ] Insert default folders on first run:
-  - [ ] Personal (root)
-  - [ ] Food (child of Personal)
-  - [ ] Grocery (child of Personal)
-  - [ ] Utility (child of Personal)
-  - [ ] Friends (root)
-  - [ ] Business (root)
+- [x] Insert default folders on first run:
+  - [x] Personal (root)
+  - [x] Food (child of Personal)
+  - [x] Grocery (child of Personal)
+  - [x] Utility (child of Personal)
+  - [x] Friends (root)
+  - [x] Business (root)
 
 ### Folder List Screen
-- [ ] Tree view with expand/collapse per root folder
-- [ ] Indented children (indent by depth)
-- [ ] Each row: colored icon, folder name, transaction count badge
-- [ ] FAB to add root folder
-- [ ] "+" icon beside each folder to add a child
-- [ ] Long-press → Edit / Archive / Add Child
-- [ ] Drag-to-reorder within same parent level
+- [x] Tree view with expand/collapse per root folder
+- [x] Indented children (indent by depth)
+- [x] Each row: colored icon, folder name, transaction count badge
+- [x] FAB to add root folder
+- [x] "+" icon beside each folder to add a child
+- [x] Long-press → Edit / Archive / Add Child
+- [x] Drag-to-reorder within same parent level
 
 ### Add / Edit Folder Screen
-- [ ] Folder name (required)
-- [ ] Parent folder selector (dropdown of active root folders; empty = root)
-- [ ] Color picker (16 preset palette)
-- [ ] Icon picker (grid of ~30 material icons: food, car, home, work, etc.)
-- [ ] Enforce max depth of 3 levels
+- [x] Folder name (required)
+- [x] Parent folder selector (dropdown of active root folders; empty = root)
+- [x] Color picker (16 preset palette)
+- [x] Icon picker (grid of ~30 material icons: food, car, home, work, etc.)
+- [x] Enforce max depth of 3 levels
 
 ### Archive Logic
-- [ ] Archiving a parent folder archives all children
-- [ ] Archived folders hidden from transaction form selectors
-- [ ] Archived section visible in folder settings for reference
+- [x] Archiving a parent folder archives all children
+- [x] Archived folders hidden from transaction form selectors
+- [x] Archived section visible in folder settings for reference
 
 ### Providers
-- [ ] `foldersProvider` — `FutureProvider<List<Folder>>` (tree)
-- [ ] `activeFoldersProvider` — flat list of active folders for dropdowns
+- [x] `foldersProvider` — `FutureProvider<List<Folder>>` (tree)
+- [x] `activeFoldersProvider` — flat list of active folders for dropdowns
 
 ---
 

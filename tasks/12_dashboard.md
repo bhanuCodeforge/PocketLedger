@@ -8,8 +8,8 @@ Home screen giving an at-a-glance financial snapshot: today's spending, monthly 
 ## Tasks
 
 ### Layout Structure
-- [ ] Sticky header: greeting ("Hi [name]!"), current date, settings icon
-- [ ] Scrollable widget grid:
+- [x] Sticky header: greeting ("Hi [name]!"), current date, settings icon
+- [x] Scrollable widget grid:
   1. Today Expense card
   2. Month Expense card
   3. Total Income (month) card
@@ -20,58 +20,58 @@ Home screen giving an at-a-glance financial snapshot: today's spending, monthly 
   8. Recent transactions list (last 10)
 
 ### Widget: Today Expense
-- [ ] Total expenses for today (local timezone)
-- [ ] Trend indicator vs yesterday (↑↓ %)
-- [ ] Tap → Expense list filtered to today
+- [x] Total expenses for today (local timezone)
+- [x] Trend indicator vs yesterday (↑↓ %)
+- [x] Tap → Expense list filtered to today
 
 ### Widget: Month Expense
-- [ ] Total expenses for current calendar month
-- [ ] Progress vs last month
-- [ ] Tap → Expense list filtered to current month
+- [x] Total expenses for current calendar month
+- [x] Progress vs last month
+- [x] Tap → Expense list filtered to current month
 
 ### Widget: Total Income (Month)
-- [ ] Total income for current month
-- [ ] Tap → Income list filtered to current month
+- [x] Total income for current month
+- [x] Tap → Income list filtered to current month
 
 ### Widget: Wallet Balance Carousel
-- [ ] Horizontal scroll cards per wallet
-- [ ] Each card: wallet name, type icon, balance, color
-- [ ] Tap → Wallet detail (transaction list for that wallet)
-- [ ] Last card: "Total Balance" (sum of all active wallets)
+- [x] Horizontal scroll cards per wallet
+- [x] Each card: wallet name, type icon, balance, color
+- [x] Tap → Wallet detail (transaction list for that wallet)
+- [x] Last card: "Total Balance" (sum of all active wallets)
 
 ### Widget: Pending Loans
-- [ ] Count of active + overdue loans
-- [ ] Net amount outstanding (given − taken)
-- [ ] Tap → Loan list
+- [x] Count of active + overdue loans
+- [x] Net amount outstanding (given − taken)
+- [x] Tap → Loan list
 
 ### Widget: Group Dues
-- [ ] Count of groups where user owes or is owed
-- [ ] Your net balance across all groups
-- [ ] Tap → Group list
+- [x] Count of groups where user owes or is owed
+- [x] Your net balance across all groups
+- [x] Tap → Group list
 
 ### Widget: Budget Alerts
-- [ ] Show budgets ≥ 50% used as progress chips
-- [ ] Color-coded by severity
-- [ ] Tap chip → Budget detail
+- [x] Show budgets ≥ 50% used as progress chips
+- [x] Color-coded by severity
+- [x] Tap chip → Budget detail
 
 ### Widget: Recent Transactions
-- [ ] Last 10 transactions (expenses + income mixed, sorted by date desc)
-- [ ] Each row: icon, description, amount (red/green), date
-- [ ] "See All" link → Combined transaction list
+- [x] Last 10 transactions (expenses + income mixed, sorted by date desc)
+- [x] Each row: icon, description, amount (red/green), date
+- [x] "See All" link → Combined transaction list
 
 ### FAB (Floating Action Button)
-- [ ] Speed dial FAB:
-  - [ ] Add Expense (primary)
-  - [ ] Add Income
-  - [ ] Add Loan
-  - [ ] Transfer (wallet to wallet)
+- [x] Speed dial FAB:
+  - [x] Add Expense (primary)
+  - [x] Add Income
+  - [x] Add Loan
+  - [x] Transfer (wallet to wallet)
 
 ### Pull-to-Refresh
-- [ ] Refresh all dashboard providers on pull
-- [ ] Show shimmer skeletons during loading
+- [x] Refresh all dashboard providers on pull
+- [x] Show shimmer skeletons during loading
 
 ### Providers (all data from existing module providers)
-- [ ] `dashboardProvider` — aggregate `FutureProvider` that waits on:
+- [x] `dashboardProvider` — aggregate `FutureProvider` that waits on:
   - `todayExpenseProvider`
   - `monthExpenseProvider`
   - `monthIncomeProvider`

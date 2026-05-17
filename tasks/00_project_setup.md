@@ -8,37 +8,37 @@ Initialize the Flutter project with all required packages, folder structure, and
 ## Tasks
 
 ### Flutter Project Init
-- [ ] Run `flutter create pocket_ledger --org com.pocketledger --platforms android,ios`
-- [ ] Set minimum SDK: Android API 21, iOS 13
-- [ ] Configure app name and bundle ID in `pubspec.yaml`, `AndroidManifest.xml`, `Info.plist`
-- [ ] Set app icons (Android adaptive + iOS) using `flutter_launcher_icons`
-- [ ] Set splash screen using `flutter_native_splash`
+- [x] Run `flutter create pocket_ledger --org com.pocketledger --platforms android,ios`
+- [x] Set minimum SDK: Android API 21, iOS 13
+- [x] Configure app name and bundle ID in `pubspec.yaml`, `AndroidManifest.xml`, `Info.plist`
+- [x] Set app icons (Android adaptive + iOS) using `flutter_launcher_icons`
+- [x] Set splash screen using `flutter_native_splash`
 
 ### Dependency Setup (`pubspec.yaml`)
-- [ ] `sqflite` — SQLite ORM
-- [ ] `path_provider` — File paths
-- [ ] `riverpod` / `flutter_riverpod` — State management
-- [ ] `go_router` — Navigation
-- [ ] `google_sign_in` — Google OAuth
-- [ ] `googleapis` — Google Drive API
-- [ ] `flutter_local_notifications` — Local reminders
-- [ ] `local_auth` — Fingerprint / Face ID
-- [ ] `encrypt` — AES encryption for backup
-- [ ] `archive` — ZIP for backup
-- [ ] `intl` — Formatting (dates, currency, i18n)
-- [ ] `fl_chart` — Charts and analytics
-- [ ] `image_picker` — Receipt images
-- [ ] `share_plus` — Export sharing
-- [ ] `pdf` — PDF generation
-- [ ] `excel` — Excel export
-- [ ] `csv` — CSV export
-- [ ] `permission_handler` — Runtime permissions
-- [ ] `uuid` — Unique IDs for records
-- [ ] `crypto` — PIN hashing (SHA-256)
-- [ ] `flutter_secure_storage` — Secure key storage
+- [x] `sqflite` — SQLite ORM
+- [x] `path_provider` — File paths
+- [x] `riverpod` / `flutter_riverpod` — State management
+- [x] `go_router` — Navigation
+- [x] `google_sign_in` — Google OAuth
+- [x] `googleapis` — Google Drive API
+- [x] `flutter_local_notifications` — Local reminders
+- [x] `local_auth` — Fingerprint / Face ID
+- [x] `encrypt` — AES encryption for backup
+- [x] `archive` — ZIP for backup
+- [x] `intl` — Formatting (dates, currency, i18n)
+- [x] `fl_chart` — Charts and analytics
+- [x] `image_picker` — Receipt images
+- [x] `share_plus` — Export sharing
+- [x] `pdf` — PDF generation
+- [x] `excel` — Excel export
+- [x] `csv` — CSV export
+- [x] `permission_handler` — Runtime permissions
+- [x] `uuid` — Unique IDs for records
+- [x] `crypto` — PIN hashing (SHA-256)
+- [x] `flutter_secure_storage` — Secure key storage
 
 ### Folder Structure
-- [ ] Create `lib/` structure:
+- [x] Create `lib/` structure:
   ```
   lib/
   ├── main.dart
@@ -71,52 +71,52 @@ Initialize the Flutter project with all required packages, folder structure, and
   ```
 
 ### Database Layer
-- [ ] Create `DatabaseHelper` singleton (`core/database/database_helper.dart`)
-- [ ] Define `onCreate` with all table creation SQL
-- [ ] Define `onUpgrade` with migration logic
-- [ ] Implement `onConfigure` to enable WAL mode and foreign keys (`PRAGMA foreign_keys = ON`)
-- [ ] Write base repository abstract class
+- [x] Create `DatabaseHelper` singleton (`core/database/database_helper.dart`)
+- [x] Define `onCreate` with all table creation SQL
+- [x] Define `onUpgrade` with migration logic
+- [x] Implement `onConfigure` to enable WAL mode and foreign keys (`PRAGMA foreign_keys = ON`)
+- [x] Write base repository abstract class
 
 ### Database Tables — Create All
-- [ ] `security_settings`
-- [ ] `user_profile`
-- [ ] `wallets`
-- [ ] `folders`
-- [ ] `expenses`
-- [ ] `income`
-- [ ] `loans`
-- [ ] `loan_payments`
-- [ ] `contacts`
-- [ ] `groups`
-- [ ] `group_members`
-- [ ] `group_transactions`
-- [ ] `budgets`
-- [ ] `attachments`
-- [ ] `tags`
-- [ ] `expense_tags`
-- [ ] `backup_metadata`
+- [x] `security_settings`
+- [x] `user_profile`
+- [x] `wallets`
+- [x] `folders`
+- [x] `expenses`
+- [x] `income`
+- [x] `loans`
+- [x] `loan_payments`
+- [x] `contacts`
+- [x] `groups`
+- [x] `group_members`
+- [x] `group_transactions`
+- [x] `budgets`
+- [x] `attachments`
+- [x] `tags`
+- [x] `expense_tags`
+- [x] `backup_metadata`
 
 ### Indexes
-- [ ] Index on `expenses(date)`, `expenses(folder_id)`, `expenses(wallet_id)`
-- [ ] Index on `income(date)`
-- [ ] Index on `loans(contact_id)`, `loans(due_date)`
-- [ ] Index on `contacts(name)`
+- [x] Index on `expenses(date)`, `expenses(folder_id)`, `expenses(wallet_id)`
+- [x] Index on `income(date)`
+- [x] Index on `loans(contact_id)`, `loans(due_date)`
+- [x] Index on `contacts(name)`
 
 ### Theme Setup
-- [ ] Define light theme (`ThemeData`)
-- [ ] Define dark theme (`ThemeData`)
-- [ ] Create `AppColors`, `AppTextStyles`, `AppDimensions` constants
-- [ ] Theme switching via Riverpod `StateNotifierProvider`
+- [x] Define light theme (`ThemeData`)
+- [x] Define dark theme (`ThemeData`)
+- [x] Create `AppColors`, `AppTextStyles`, `AppDimensions` constants
+- [x] Theme switching via Riverpod `StateNotifierProvider`
 
 ### Routing
-- [ ] Configure `GoRouter` with routes for all screens
-- [ ] Implement redirect guard: if no PIN set → onboarding, else → PIN lock screen
+- [x] Configure `GoRouter` with routes for all screens
+- [x] Implement redirect guard: if no PIN set → onboarding, else → PIN lock screen
 
 ### CI / Quality
-- [ ] Add `analysis_options.yaml` with strict lint rules
-- [ ] Configure `flutter test` baseline
-- [ ] Add `.gitignore` (Flutter preset + secrets)
-- [ ] Add `README.md` to project root
+- [x] Add `analysis_options.yaml` with strict lint rules
+- [x] Configure `flutter test` baseline
+- [x] Add `.gitignore` (Flutter preset + secrets)
+- [x] Add `README.md` to project root
 
 ---
 

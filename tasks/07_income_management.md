@@ -31,42 +31,42 @@ CREATE TABLE income (
 ## Tasks
 
 ### Model
-- [ ] `Income` model with `fromMap` / `toMap`
-- [ ] `IncomeCategory` enum: salary, freelance, interest, rentReceived, business, gift, other
-- [ ] Same `tags` and `attachments` support as expenses (reuse `expense_tags` table with `income` prefix or unified `entity_tags`)
+- [x] `Income` model with `fromMap` / `toMap`
+- [x] `IncomeCategory` enum: salary, freelance, interest, rentReceived, business, gift, other
+- [x] Same `tags` and `attachments` support as expenses (reuse `expense_tags` table with `income` prefix or unified `entity_tags`)
 
 ### Repository
-- [ ] `IncomeRepository`:
-  - [ ] `getAllIncome({DateTime? from, DateTime? to}) → List<Income>`
-  - [ ] `getIncomeById(String id) → Income?`
-  - [ ] `getTotalIncomeForPeriod(DateTime from, DateTime to) → double`
-  - [ ] `getIncomeForMonth(int year, int month) → List<Income>`
-  - [ ] `createIncome(Income)`
-  - [ ] `updateIncome(Income)`
-  - [ ] `deleteIncome(String id)`
+- [x] `IncomeRepository`:
+  - [x] `getAllIncome({DateTime? from, DateTime? to}) → List<Income>`
+  - [x] `getIncomeById(String id) → Income?`
+  - [x] `getTotalIncomeForPeriod(DateTime from, DateTime to) → double`
+  - [x] `getIncomeForMonth(int year, int month) → List<Income>`
+  - [x] `createIncome(Income)`
+  - [x] `updateIncome(Income)`
+  - [x] `deleteIncome(String id)`
 
 ### Income List Screen
-- [ ] Grouped by date
-- [ ] Each row: category icon, description, amount (green), wallet
-- [ ] Filter by category, wallet, date range
-- [ ] Swipe to delete
+- [x] Grouped by date
+- [x] Each row: category icon, description, amount (green), wallet
+- [x] Filter by category, wallet, date range
+- [x] Swipe to delete
 
 ### Add / Edit Income Screen
-- [ ] Amount (required)
-- [ ] Category selector
-- [ ] Description
-- [ ] Date & time picker
-- [ ] Wallet selector
-- [ ] Folder selector (optional)
-- [ ] Contact linker (optional — e.g., received from a contact)
-- [ ] Notes
-- [ ] Attachments (salary slip image)
-- [ ] Save → validate → `createIncome`
+- [x] Amount (required)
+- [x] Category selector
+- [x] Description
+- [x] Date & time picker
+- [x] Wallet selector
+- [x] Folder selector (optional)
+- [x] Contact linker (optional — e.g., received from a contact)
+- [x] Notes
+- [x] Attachments (salary slip image)
+- [x] Save → validate → `createIncome`
 
 ### Providers
-- [ ] `incomeListProvider` — filtered `FutureProvider<List<Income>>`
-- [ ] `totalIncomeProvider` — `FutureProvider<double>` for dashboard
-- [ ] `monthIncomeProvider(year, month)` — for reports
+- [x] `incomeListProvider` — filtered `FutureProvider<List<Income>>`
+- [x] `totalIncomeProvider` — `FutureProvider<double>` for dashboard
+- [x] `monthIncomeProvider(year, month)` — for reports
 
 ---
 

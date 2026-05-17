@@ -8,14 +8,14 @@ Parse bank transaction SMS messages on Android to automatically create expense/i
 ## Tasks
 
 ### Platform Notes
-- [ ] Android: `telephony` package can read SMS inbox
-- [ ] iOS: SMS access not available → show "Import manually" UI (paste SMS text)
-- [ ] Gate SMS features behind `Platform.isAndroid` check
+- [x] Android: `telephony` package can read SMS inbox
+- [x] iOS: SMS access not available → show "Import manually" UI (paste SMS text)
+- [x] Gate SMS features behind `Platform.isAndroid` check
 
 ### Package Setup
-- [ ] Add `telephony` to `pubspec.yaml` (Android only)
-- [ ] Add permission to `AndroidManifest.xml`: `READ_SMS`, `RECEIVE_SMS`
-- [ ] Request `READ_SMS` permission at runtime before first access
+- [x] Add `telephony` to `pubspec.yaml` (Android only)
+- [x] Add permission to `AndroidManifest.xml`: `READ_SMS`, `RECEIVE_SMS`
+- [x] Request `READ_SMS` permission at runtime before first access
 
 ### Supported Bank Formats
 Parse SMS from major Indian banks/services:
@@ -31,15 +31,15 @@ Parse SMS from major Indian banks/services:
 | Credit card | `spent Rs.{amount} at {merchant}` |
 
 ### SMS Parser Service
-- [ ] `SMSParserService`:
-  - [ ] `isBankSMS(SmsMessage msg) → bool`
+- [x] `SMSParserService`:
+  - [x] `isBankSMS(SmsMessage msg) → bool`
     - Sender must match known short codes: `HDFCBK`, `SBIINB`, `ICICIB`, `AXISBK`, `PAYTM`, etc.
-  - [ ] `parseSMS(SmsMessage msg) → ParsedSMS?`
-    - [ ] Extract `amount` via regex: `(?:rs\.?|inr|₹)\s*(\d+(?:,\d+)*(?:\.\d{2})?)`
-    - [ ] Extract `type`: look for keywords `debit|debited|spent|paid|withdrawn` → expense; `credit|credited|received|deposit` → income
-    - [ ] Extract `merchant`: text after "at", "to", "from" keywords
-    - [ ] Extract `date`: from SMS timestamp (`SmsMessage.date`)
-    - [ ] Return `ParsedSMS(amount, type, merchant, date, rawBody)`
+  - [x] `parseSMS(SmsMessage msg) → ParsedSMS?`
+    - [x] Extract `amount` via regex: `(?:rs\.?|inr|₹)\s*(\d+(?:,\d+)*(?:\.\d{2})?)`
+    - [x] Extract `type`: look for keywords `debit|debited|spent|paid|withdrawn` → expense; `credit|credited|received|deposit` → income
+    - [x] Extract `merchant`: text after "at", "to", "from" keywords
+    - [x] Extract `date`: from SMS timestamp (`SmsMessage.date`)
+    - [x] Return `ParsedSMS(amount, type, merchant, date, rawBody)`
 
 ### SMS Import Flow
 1. User opens SMS Import screen
@@ -54,40 +54,40 @@ Parse SMS from major Indian banks/services:
 7. Already-imported SMS filtered out on next open (by checking `sms_import_log`)
 
 ### SMS Import Screen
-- [ ] Filter bar: All / Debits / Credits / Unreviewed
-- [ ] Each SMS card:
+- [x] Filter bar: All / Debits / Credits / Unreviewed
+- [x] Each SMS card:
   - Bank icon + sender name
   - Parsed: amount (red/green), merchant, date
   - Raw SMS body (collapsible)
   - Status: Pending / Imported / Skipped
-- [ ] "Select All" / "Deselect All"
-- [ ] "Import Selected" → bulk import dialog
-- [ ] "Skip" swipe action on individual SMS
+- [x] "Select All" / "Deselect All"
+- [x] "Import Selected" → bulk import dialog
+- [x] "Skip" swipe action on individual SMS
 
 ### Bulk Import Dialog
-- [ ] Wallet selector (applied to all selected)
-- [ ] Folder selector (applied to all selected)
-- [ ] Category auto-assigned per merchant (user can override individually after)
-- [ ] "Confirm Import" button
+- [x] Wallet selector (applied to all selected)
+- [x] Folder selector (applied to all selected)
+- [x] Category auto-assigned per merchant (user can override individually after)
+- [x] "Confirm Import" button
 
 ### iOS Manual Paste Fallback
-- [ ] Large text area to paste SMS text
-- [ ] "Parse" button → runs `parseSMS` on pasted text
-- [ ] Shows parsed result for review → same Add Expense pre-fill flow as OCR
+- [x] Large text area to paste SMS text
+- [x] "Parse" button → runs `parseSMS` on pasted text
+- [x] Shows parsed result for review → same Add Expense pre-fill flow as OCR
 
 ### Duplicate Detection
-- [ ] Before import, check `expenses` / `income` table for same amount + date ± 1 day
-- [ ] Warn user: "A similar transaction already exists. Import anyway?"
+- [x] Before import, check `expenses` / `income` table for same amount + date ± 1 day
+- [x] Warn user: "A similar transaction already exists. Import anyway?"
 
 ### Database
-- [ ] Log all seen SMS in `sms_import_log` (even skipped ones)
-- [ ] `status`: `pending | imported | skipped | failed`
-- [ ] On next open, filter out `status IN ('imported', 'skipped')`
+- [x] Log all seen SMS in `sms_import_log` (even skipped ones)
+- [x] `status`: `pending | imported | skipped | failed`
+- [x] On next open, filter out `status IN ('imported', 'skipped')`
 
 ### Auto-Import (Optional Setting)
-- [ ] Register `RECEIVE_SMS` broadcast receiver
-- [ ] On new bank SMS received → parse → show notification: "New transaction detected. Tap to review"
-- [ ] Tapping notification opens SMS Import screen pre-filtered to that SMS
+- [x] Register `RECEIVE_SMS` broadcast receiver
+- [x] On new bank SMS received → parse → show notification: "New transaction detected. Tap to review"
+- [x] Tapping notification opens SMS Import screen pre-filtered to that SMS
 
 ---
 

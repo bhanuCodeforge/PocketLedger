@@ -28,37 +28,37 @@ CREATE TABLE user_profile (
 ## Tasks
 
 ### Profile Model
-- [ ] `UserProfile` Dart model with `fromMap` / `toMap`
-- [ ] Default values matching table defaults
+- [x] `UserProfile` Dart model with `fromMap` / `toMap`
+- [x] Default values matching table defaults
 
 ### Profile Repository
-- [ ] `UserProfileRepository`:
-  - [ ] `getProfile() → UserProfile?`
-  - [ ] `createProfile(UserProfile)`
-  - [ ] `updateProfile(UserProfile)`
+- [x] `UserProfileRepository`:
+  - [x] `getProfile() → UserProfile?`
+  - [x] `createProfile(UserProfile)`
+  - [x] `updateProfile(UserProfile)`
 
 ### Profile Setup Screen (Onboarding Step)
-- [ ] Name input (optional, shown as "Hi, [name]" on dashboard)
-- [ ] Currency selector:
-  - [ ] Preset list: INR (₹), USD ($), AED (د.إ), EUR (€), GBP (£), JPY (¥)
-  - [ ] Custom currency option (name + symbol input)
-  - [ ] Searchable list
-- [ ] Language selector (English default; prepare i18n scaffold for future)
-- [ ] Timezone auto-detect from device (`DateTime.now().timeZoneName`)
+- [x] Name input (optional, shown as "Hi, [name]" on dashboard)
+- [x] Currency selector:
+  - [x] Preset list: INR (₹), USD ($), AED (د.إ), EUR (€), GBP (£), JPY (¥)
+  - [x] Custom currency option (name + symbol input)
+  - [x] Searchable list
+- [x] Language selector (English default; prepare i18n scaffold for future)
+- [x] Timezone auto-detect from device (`DateTime.now().timeZoneName`)
 
 ### Profile Edit Screen (from Settings)
-- [ ] Same fields as setup
-- [ ] Save button triggers `updateProfile`
-- [ ] Currency change shows warning: "Existing transactions will show new symbol"
+- [x] Same fields as setup
+- [x] Save button triggers `updateProfile`
+- [x] Currency change shows warning: "Existing transactions will show new symbol"
 
 ### Currency Formatting Utility
-- [ ] `CurrencyFormatter.format(double amount, UserProfile profile)` → `String`
-- [ ] Handles decimal places (0 for JPY, 2 for most)
+- [x] `CurrencyFormatter.format(double amount, UserProfile profile)` → `String`
+- [x] Handles decimal places (0 for JPY, 2 for most)
 
 ### Providers
-- [ ] `userProfileProvider` — `StateNotifierProvider<UserProfileNotifier>`
-- [ ] `currencyProvider` — derived from profile
-- [ ] `themeProvider` — derived from profile (`theme_mode`)
+- [x] `userProfileProvider` — `StateNotifierProvider<UserProfileNotifier>`
+- [x] `currencyProvider` — derived from profile
+- [x] `themeProvider` — derived from profile (`theme_mode`)
 
 ---
 
