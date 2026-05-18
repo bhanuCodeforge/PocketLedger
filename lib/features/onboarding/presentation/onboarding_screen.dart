@@ -6,6 +6,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../../features/settings/data/user_profile_repository.dart';
 import '../../../features/auth/data/security_repository.dart';
+import '../../../features/wallets/data/wallet_providers.dart';
 import '../../../core/providers/auth_state_provider.dart';
 import '../../../generated/l10n/app_localizations.dart';
 
@@ -28,6 +29,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   final _pinController = TextEditingController();
   final _pinConfirmController = TextEditingController();
   String _pinError = '';
+  bool _pinObscure = true;
+  bool _pinConfirmObscure = true;
 
   static const _currencies = [
     ('INR', '₹', 'Indian Rupee'),
@@ -67,12 +70,15 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   }
 
   Future<void> _completeOnboarding() async {
-    // Validate PIN
-    if (_pinController.text.length != 6) {
+    // Strip to digits only before comparing
+    final pin1 = _pinController.text.replaceAll(RegExp(r'\D'), '');
+    final pin2 = _pinConfirmController.text.replaceAll(RegExp(r'\D'), '');
+
+    if (pin1.length != 6) {
       setState(() => _pinError = AppLocalizations.of(context).errorPinTooShort);
       return;
     }
-    if (_pinController.text.trim() != _pinConfirmController.text.trim()) {
+    if (pin1 != pin2) {
       setState(() => _pinError = AppLocalizations.of(context).errorPinMismatch);
       return;
     }
@@ -90,8 +96,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       name: '',
     ));
 
-    // Set PIN
-    await securityRepo.setPIN(_pinController.text.trim());
+    // Set PIN (digits only)
+    await securityRepo.setPIN(pin1);
 
     // Create default wallet
     final db = await ref.read(userProfileRepositoryProvider).db;
@@ -123,6 +129,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         name: '',
       ),
     );
+
+    // Invalidate cached providers so fresh data loads on dashboard
+    ref.invalidate(walletsProvider);
 
     // Authenticate and navigate
     ref.read(authStateProvider.notifier).authenticate();
@@ -185,11 +194,15 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   ),
                   _PinPage(
                     pinController: _pinController,
+                    obscure: _pinObscure,
+                    onToggleObscure: () => setState(() => _pinObscure = !_pinObscure),
                     onNext: _nextPage,
                     onBack: _prevPage,
                   ),
                   _PinConfirmPage(
                     pinConfirmController: _pinConfirmController,
+                    obscure: _pinConfirmObscure,
+                    onToggleObscure: () => setState(() => _pinConfirmObscure = !_pinConfirmObscure),
                     pinError: _pinError,
                     onComplete: _completeOnboarding,
                     onBack: _prevPage,
@@ -420,11 +433,15 @@ class _WalletPage extends StatelessWidget {
 // ── Page 4: PIN entry ────────────────────────────────────────────────────────
 class _PinPage extends StatelessWidget {
   final TextEditingController pinController;
+  final bool obscure;
+  final VoidCallback onToggleObscure;
   final VoidCallback onNext;
   final VoidCallback onBack;
 
   const _PinPage({
     required this.pinController,
+    required this.obscure,
+    required this.onToggleObscure,
     required this.onNext,
     required this.onBack,
   });
@@ -451,13 +468,19 @@ class _PinPage extends StatelessWidget {
           const SizedBox(height: 40),
           TextField(
             controller: pinController,
-            obscureText: true,
+            obscureText: obscure,
             maxLength: 6,
             keyboardType: TextInputType.number,
+            autocorrect: false,
+            enableSuggestions: false,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             decoration: InputDecoration(
               labelText: l10n.onboardingPinTitle,
               prefixIcon: const Icon(Icons.lock_outline),
+              suffixIcon: IconButton(
+                icon: Icon(obscure ? Icons.visibility_off : Icons.visibility),
+                onPressed: onToggleObscure,
+              ),
             ),
           ),
           const Spacer(),
@@ -468,7 +491,8 @@ class _PinPage extends StatelessWidget {
               Expanded(
                 child: ElevatedButton(
                   onPressed: () {
-                    if (pinController.text.length == 6) onNext();
+                    final digits = pinController.text.replaceAll(RegExp(r'\D'), '');
+                    if (digits.length == 6) onNext();
                   },
                   child: Text(l10n.next),
                 ),
@@ -484,12 +508,16 @@ class _PinPage extends StatelessWidget {
 // ── Page 5: PIN confirm ──────────────────────────────────────────────────────
 class _PinConfirmPage extends StatelessWidget {
   final TextEditingController pinConfirmController;
+  final bool obscure;
+  final VoidCallback onToggleObscure;
   final String pinError;
   final Future<void> Function() onComplete;
   final VoidCallback onBack;
 
   const _PinConfirmPage({
     required this.pinConfirmController,
+    required this.obscure,
+    required this.onToggleObscure,
     required this.pinError,
     required this.onComplete,
     required this.onBack,
@@ -517,13 +545,19 @@ class _PinConfirmPage extends StatelessWidget {
           const SizedBox(height: 40),
           TextField(
             controller: pinConfirmController,
-            obscureText: true,
+            obscureText: obscure,
             maxLength: 6,
             keyboardType: TextInputType.number,
+            autocorrect: false,
+            enableSuggestions: false,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             decoration: InputDecoration(
               labelText: l10n.onboardingPinConfirmTitle,
               prefixIcon: const Icon(Icons.lock_outline),
+              suffixIcon: IconButton(
+                icon: Icon(obscure ? Icons.visibility_off : Icons.visibility),
+                onPressed: onToggleObscure,
+              ),
               errorText: pinError.isEmpty ? null : pinError,
             ),
           ),
