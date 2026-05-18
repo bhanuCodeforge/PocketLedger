@@ -9,6 +9,17 @@ import '../../../core/theme/app_text_styles.dart';
 class SplashScreen extends ConsumerWidget {
   const SplashScreen({super.key});
 
+  void _navigate(BuildContext context, WidgetRef ref, AppInitState state) {
+    if (!state.isOnboardingComplete) {
+      context.go('/onboarding');
+    } else if (state.hasPIN) {
+      context.go('/lock');
+    } else {
+      ref.read(authStateProvider.notifier).authenticate();
+      context.go('/dashboard');
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appInit = ref.watch(appInitProvider);
@@ -16,17 +27,18 @@ class SplashScreen extends ConsumerWidget {
 
     ref.listen(appInitProvider, (_, next) {
       if (next.hasValue) {
-        final state = next.value!;
-        if (!state.isOnboardingComplete) {
-          context.go('/onboarding');
-        } else if (state.hasPIN) {
-          context.go('/lock');
-        } else {
-          ref.read(authStateProvider.notifier).authenticate();
-          context.go('/dashboard');
-        }
+        _navigate(context, ref, next.value!);
       }
     });
+
+    // Handle the case where the provider already resolved before listener registered
+    if (appInit.hasValue) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (context.mounted) {
+          _navigate(context, ref, appInit.value!);
+        }
+      });
+    }
 
     return Scaffold(
       backgroundColor: scheme.primary,

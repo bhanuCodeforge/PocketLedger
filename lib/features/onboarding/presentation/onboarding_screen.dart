@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
@@ -71,7 +72,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       setState(() => _pinError = AppLocalizations.of(context).errorPinTooShort);
       return;
     }
-    if (_pinController.text != _pinConfirmController.text) {
+    if (_pinController.text.trim() != _pinConfirmController.text.trim()) {
       setState(() => _pinError = AppLocalizations.of(context).errorPinMismatch);
       return;
     }
@@ -90,7 +91,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     ));
 
     // Set PIN
-    await securityRepo.setPIN(_pinController.text);
+    await securityRepo.setPIN(_pinController.text.trim());
 
     // Create default wallet
     final db = await ref.read(userProfileRepositoryProvider).db;
@@ -453,6 +454,7 @@ class _PinPage extends StatelessWidget {
             obscureText: true,
             maxLength: 6,
             keyboardType: TextInputType.number,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             decoration: InputDecoration(
               labelText: l10n.onboardingPinTitle,
               prefixIcon: const Icon(Icons.lock_outline),
@@ -518,6 +520,7 @@ class _PinConfirmPage extends StatelessWidget {
             obscureText: true,
             maxLength: 6,
             keyboardType: TextInputType.number,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             decoration: InputDecoration(
               labelText: l10n.onboardingPinConfirmTitle,
               prefixIcon: const Icon(Icons.lock_outline),
