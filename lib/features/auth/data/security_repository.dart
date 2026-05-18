@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -19,7 +20,8 @@ class SecurityRepository extends BaseRepository {
     var salt = await _secureStorage.read(key: _saltKey);
     if (salt == null) {
       // Generate a random 32-byte salt stored only in secure storage
-      final bytes = List<int>.generate(32, (i) => i ^ DateTime.now().millisecondsSinceEpoch);
+      final rng = Random.secure();
+      final bytes = List<int>.generate(32, (_) => rng.nextInt(256));
       salt = base64Encode(bytes);
       await _secureStorage.write(key: _saltKey, value: salt);
     }

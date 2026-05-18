@@ -83,43 +83,34 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       return;
     }
 
-    final profileRepo = ref.read(userProfileRepositoryProvider);
-    final securityRepo = ref.read(securityRepositoryProvider);
+    setState(() => _pinError = '');
 
-    // Create user profile
-    await profileRepo.upsertProfile(UserProfile(
-      currencyCode: _selectedCurrency,
-      currencySymbol: _selectedCurrencySymbol,
-      languageCode: 'en',
-      themeMode: 'system',
-      isOnboardingComplete: true,
-      name: '',
-    ));
+    try {
+      final profileRepo = ref.read(userProfileRepositoryProvider);
+      final securityRepo = ref.read(securityRepositoryProvider);
+      final db = await profileRepo.db;
+      final now = DateTime.now().millisecondsSinceEpoch;
 
-    // Set PIN (digits only)
-    await securityRepo.setPIN(pin1);
-
-    // Create default wallet
-    final db = await ref.read(userProfileRepositoryProvider).db;
-    final walletId = DateTime.now().millisecondsSinceEpoch.toString();
-    final now = DateTime.now().millisecondsSinceEpoch;
-    await db.insert('wallets', {
-      'id': walletId,
-      'name': _walletNameController.text.trim().isEmpty
+      // 1. Create wallet first
+      final walletId = now.toString();
+      final walletName = _walletNameController.text.trim().isEmpty
           ? 'My Wallet'
-          : _walletNameController.text.trim(),
-      'type': 'cash',
-      'opening_balance': double.tryParse(_openingBalanceController.text) ?? 0.0,
-      'color': '#2563EB',
-      'icon': 'account_balance_wallet',
-      'is_archived': 0,
-      'sort_order': 0,
-      'created_at': now,
-      'updated_at': now,
-    });
+          : _walletNameController.text.trim();
+      await db.insert('wallets', {
+        'id': walletId,
+        'name': walletName,
+        'type': 'cash',
+        'opening_balance': double.tryParse(_openingBalanceController.text) ?? 0.0,
+        'color': '#2563EB',
+        'icon': 'account_balance_wallet',
+        'is_archived': 0,
+        'sort_order': 0,
+        'created_at': now,
+        'updated_at': now,
+      });
 
-    await profileRepo.updateProfile(
-      UserProfile(
+      // 2. Save profile with wallet + onboarding complete
+      await profileRepo.upsertProfile(UserProfile(
         currencyCode: _selectedCurrency,
         currencySymbol: _selectedCurrencySymbol,
         languageCode: 'en',
@@ -127,15 +118,27 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         isOnboardingComplete: true,
         defaultWalletId: walletId,
         name: '',
-      ),
-    );
+      ));
 
-    // Invalidate cached providers so fresh data loads on dashboard
-    ref.invalidate(walletsProvider);
+      // 3. Set PIN
+      await securityRepo.setPIN(pin1);
 
-    // Authenticate and navigate
-    ref.read(authStateProvider.notifier).authenticate();
-    if (mounted) context.go('/dashboard');
+      // 4. Invalidate cached providers so fresh data loads on dashboard
+      ref.invalidate(walletsProvider);
+
+      // Authenticate and navigate
+      ref.read(authStateProvider.notifier).authenticate();
+      if (mounted) context.go('/dashboard');
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Setup failed: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
   }
 
   @override

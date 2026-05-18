@@ -3,6 +3,7 @@ import '../database/database_helper.dart';
 import '../../features/settings/data/user_profile_repository.dart';
 import '../../features/auth/data/security_repository.dart';
 import '../../features/folders/data/folder_repository.dart';
+import '../../features/wallets/data/wallet_repository.dart';
 
 /// Holds the result of app startup checks.
 class AppInitState {
@@ -39,8 +40,17 @@ final appInitProvider = FutureProvider<AppInitState>((ref) async {
   // Seed default folders on first run
   await folderRepo.seedDefaultFolders();
 
+  // If profile says onboarding is done but no wallet exists (broken state
+  // from a previous failed onboarding), force onboarding again.
+  bool onboardingComplete = profile?.isOnboardingComplete ?? false;
+  if (onboardingComplete) {
+    final walletRepo = WalletRepository();
+    final walletCount = await walletRepo.getActiveWalletCount();
+    if (walletCount == 0) onboardingComplete = false;
+  }
+
   return AppInitState(
-    isOnboardingComplete: profile?.isOnboardingComplete ?? false,
+    isOnboardingComplete: onboardingComplete,
     hasPIN: hasPIN,
     themeMode: profile?.themeMode ?? 'system',
     languageCode: profile?.languageCode ?? 'en',
